@@ -1,0 +1,15 @@
+database:
+  mongodb-uri: ""
+  database-name: "balance"
+  collection-name: "players"
+
+messages:
+  balance: "&6Balance: &a%amount%$"
+  target-balance: "&e%target%&6's balance: &a%amount%$"
+  set-balance: "&6Successfully set &e%player%&6's balance to &a%amount%"
+  set-balance-help: "&eUsage: &6/setbalance <player> <amount>"
+  give: "&6You just sent &a%amount%$ to &e%player%"
+  give-target: "&e%player% &6just sent you&a %amount%$"
+  give-help: "&eUsage: &6/give <player> <amount>"
+  earn: "&6You just won:&a%amount%$"
+  earn-cooldown: "&6You can use this command after &a%time% &6seconds."
