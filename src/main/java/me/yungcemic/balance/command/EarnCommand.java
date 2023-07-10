@@ -32,10 +32,10 @@ public final class EarnCommand implements CommandExecutor {
                 final int amount = random.nextInt(1,6);
                 service.getPlayer(uniqueId).ifPresent(player -> {
                     player.addBalance(amount);
+                    cooldown.put(uniqueId, System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(1));
+                    p.sendMessage(BalanceLanguage.getMessage("earn")
+                            .replace("%amount%", String.valueOf(amount)));
                 });
-                cooldown.put(uniqueId, System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(1));
-                p.sendMessage(BalanceLanguage.getMessage("earn")
-                        .replace("%amount%", String.valueOf(amount)));
                 return true;
             }
             long remainingSeconds = TimeUnit.MILLISECONDS.toSeconds(cooldown.get(uniqueId) - System.currentTimeMillis());

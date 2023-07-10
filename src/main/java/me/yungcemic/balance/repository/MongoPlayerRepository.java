@@ -13,6 +13,8 @@ import java.util.UUID;
 
 public final class MongoPlayerRepository implements PlayerRepository {
 
+    private static final String UUID_KEY = "uniqueId";
+
     private MongoClient client;
     private MongoCollection<Document> collection;
 
@@ -23,10 +25,10 @@ public final class MongoPlayerRepository implements PlayerRepository {
 
     @Override
     public Optional<BalancePlayer> findByUniqueId(UUID uniqueId) {
-        Document document = collection.find(Filters.eq("uniqueId", uniqueId.toString())).first();
+        Document document = collection.find(Filters.eq(UUID_KEY, uniqueId.toString())).first();
         if (document != null) {
-            return Optional.of(new BalancePlayer(UUID.fromString(
-                    document.getString("uniqueId")),
+            return Optional.of(new BalancePlayer(UUID.fromString
+                    (document.getString(UUID_KEY)),
                     document.getDouble("balance")));
         }
         return Optional.empty();
@@ -34,8 +36,8 @@ public final class MongoPlayerRepository implements PlayerRepository {
 
     @Override
     public void save(BalancePlayer player) {
-        Document document = new Document().append("uniqueId", player.getUniqueId().toString());
+        Document document = new Document().append(UUID_KEY, player.getUniqueId().toString());
         document.append("balance", player.getBalance());
-        collection.replaceOne(Filters.eq("uniqueId", player.getUniqueId().toString()), document, new ReplaceOptions().upsert(true));
+        collection.replaceOne(Filters.eq(UUID_KEY, player.getUniqueId().toString()), document, new ReplaceOptions().upsert(true));
     }
 }
