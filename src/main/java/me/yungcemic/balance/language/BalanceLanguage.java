@@ -1,6 +1,6 @@
 package me.yungcemic.balance.language;
 
-import me.yungcemic.balance.util.ChatUtil;
+import me.yungcemic.balance.util.StringUtil;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.HashMap;
@@ -17,6 +17,6 @@ public final class BalanceLanguage {
     }
 
     public static String getMessage(String name) {
-        return ChatUtil.colorize(language.getOrDefault(name, ""));
+        return StringUtil.colorize(language.getOrDefault(name, ""));
     }
 }
